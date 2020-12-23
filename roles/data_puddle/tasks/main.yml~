@@ -1,0 +1,53 @@
+---
+    - name: "just execute a ls -lrt command"
+      shell: "ls -lrt"
+      register: "output"
+
+    - debug: var=output.stdout_lines
+
+    - name: create pheweb group
+      group:
+        name: pheweb
+        state: present
+
+    - name: create pheweb user
+      user: 
+        name: pheweb
+        group: pheweb
+        system: no
+
+
+    - name: create config.py
+      template:
+        src: templates/config.py.j2
+        dest: "{{PUDDLE_DIRECTORY}}/config.py"
+        owner: pheweb
+        group: pheweb
+        mode: '0664'
+
+    - name: create content directory
+      file:
+        path: "{{PUDDLE_DIRECTORY}}/content"
+        state: directory
+
+    - name: create config.py
+      copy:
+        src: "files/content/{{item}}"
+        dest: "{{PUDDLE_DIRECTORY}}/content/{{item}}"
+        owner: pheweb
+        group: pheweb
+        mode: '0664'
+      with_items:
+        - about.html
+        - chip.html
+        - coding.html
+        - lof.html
+        
+    - name: check identity
+      shell: gcloud auth list
+
+    - name: get bdev oauth
+      shell: gcloud beta secrets versions access latest --secret=bdev_oauth > {{PUDDLE_DIRECTORY}}/oauth.conf
+
+    - name: get mysql oauth
+      shell: gcloud beta secrets versions access latest --secret=bdev_mysql > {{PUDDLE_DIRECTORY}}/mysql.conf
