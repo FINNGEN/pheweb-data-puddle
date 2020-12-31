@@ -22,18 +22,11 @@ database_conf = (
     
     { "result": { "TabixResultDao": { 'const_arguments': [ ("phenos","PHEWEB_PHENOS"),
                                                            ("matrix_path","MATRIX_PATH") ] } } },
+    
     { "gnomad": { "TabixGnomadDao": { "matrix_path": "${ANNOTATIONS_DIR}/gnomad21/gnomad.genomes.r2.1.sites.liftover.b38.finngen.r2pos.af.ac.an.tsv.gz" } } },
     
-    { "finemapping" : { "FineMappingMySQLDao": { "authentication_file": "${DESTINATION}/mysql.conf",
-                                                 "base_paths": { "susie": "${FINEMAPPING_DIR}/susie/snp",
-                                                                 "finemap": "${FINEMAPPING_DIR}/finemap/cred" } } } } ,
-								 
     { "lof": { "LofMySQLDao": { "authentication_file": "${DESTINATION}/mysql.conf" } } },
     
-    { "finemapping" : { "FineMappingMySQLDao": { "authentication_file": "${DESTINATION}/mysql.conf",
-                                                 "base_paths": { "susie": "${FINEMAPPING_DIR}/susie/snp",
-                                                                 "finemap": "${FINEMAPPING_DIR}/finemap/cred" } } } } ,
-								 
     { "colocalization": { "ColocalizationDAO": { "db_url": "${DESTINATION}/mysql.conf" ,
                                                  "echo" : True  } } }
 )
