@@ -28,5 +28,7 @@ arguments :
 ``` 
 
   bring everything up
-  > ./build.sh
   
+```
+  ./build.sh
+```
