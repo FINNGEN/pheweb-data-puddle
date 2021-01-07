@@ -24,7 +24,9 @@ arguments :
 ```
   gcloud container clusters get-credentials staging-pheweb
   helm delete bstaging
-  rm -rf /mnt/nfs_dev/pheweb/bstaging
+  sudo rm -rf /mnt/nfs_dev/pheweb/bstaging
+  sudo mkdir /mnt/nfs_dev/pheweb/bstaging
+  sudo chown $USER:$USER /mnt/nfs_dev/pheweb/bstaging
 ``` 
 
   bring everything up
